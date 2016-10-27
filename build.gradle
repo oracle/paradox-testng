@@ -1,0 +1,50 @@
+apply plugin: 'groovy'
+apply plugin: 'idea'
+apply plugin: 'maven-publish'
+apply plugin: 'codenarc'
+
+repositories {
+    mavenCentral()
+}
+
+idea {
+    pathVariables USER_HOME: file(System.getProperty("user.home"))
+}
+
+dependencies {
+    compile 'org.codehaus.groovy:groovy-all:2.4.+'
+    compile 'org.testng:testng:6.9.10'
+    compile 'com.google.inject:guice:2.0'
+    compile 'log4j:log4j:1.2.17'
+}
+
+group = 'com.webtrends.qa'
+version = System.properties['buildversion'] ?: '3.0-SNAPSHOT'
+
+publishing {
+    publications { jar(MavenPublication) { from components.java } }
+    repositories { maven { url "file:/$buildDir/libs" } }
+}
+
+task prepareWrapper(type: Wrapper) {
+   gradleVersion = '2.14'
+}
+
+test {
+    useTestNG() {
+        useDefaultListeners = true
+    }
+
+    exclude '**/SystemUnderTest1.class'
+    exclude '**/AnotherSuite.class'
+    exclude '**/SuiteThatLogs.class'
+}
+
+codenarc {
+    toolVersion = '0.25.2'
+    configFile = new File('conf/codenarc.groovy')
+    maxPriority1Violations = 0
+    maxPriority2Violations = 16
+    maxPriority3Violations = Integer.MAX_VALUE
+    reportFormat = project.properties.'codenarc.reportFormat' ?: 'html'
+}
