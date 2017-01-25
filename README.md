@@ -1,4 +1,4 @@
-# testng
+# paradox-testng
 This project provides a functionality to write testng tests better.
 
 ## Assert
