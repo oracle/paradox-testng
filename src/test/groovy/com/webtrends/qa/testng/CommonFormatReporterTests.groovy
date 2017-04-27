@@ -38,19 +38,19 @@ class CommonFormatReporterTests {
 
         // Assert
         def expectedTests = new HashSet([
-            [comment:null, defect:null, id:null, labels:[], name: 'com.webtrends.qa.testng.SystemUnderTest1.testDataProvider(string1)', state: 'PASS', performance: null],
-            [comment:null, defect:null, id:null, labels:[], name: 'com.webtrends.qa.testng.SystemUnderTest1.testDataProvider(string2)', state: 'PASS', performance: null],
-            [comment: 'org.testng.TestNGException: ', defect:null, id:null, labels:[], name: 'com.webtrends.qa.testng.SystemUnderTest1.testDataProviderWithClass()', state: 'FAIL', performance: null],
-            [comment:null, defect:null, id:'ABC-123', labels:[], name: 'com.webtrends.qa.testng.SystemUnderTest1.testJiraId()', state: 'PASS', performance: null],
-            [comment:null, defect:null, id:null, labels:['g1'], name: 'com.webtrends.qa.testng.SystemUnderTest1.testPass()', state: 'PASS', performance: null],
-            [comment: 'Assertion failed: ', defect:null, id:null, labels:[], name: 'com.webtrends.qa.testng.SystemUnderTest1.testFailures()', state: 'FAIL', performance: null],
-            [comment: 'java.lang.Exception: This test throws an uncaught exception', defect:null, id:null, labels:[], name: 'com.webtrends.qa.testng.SystemUnderTest1.testException()', state: 'FAIL', performance: null],
-            [comment:null, defect:null, id:null, labels:[], name: 'com.webtrends.qa.testng.SystemUnderTest1.testDataProviderWithExternalClass(string4)', state: 'PASS', performance: null],
-            [comment:null, defect:null, id:null, labels:[], name: 'com.webtrends.qa.testng.SystemUnderTest1.testDataProviderWithExternalClass(string5)', state: 'PASS', performance: null],
-            [comment: 'java.lang.Exception: This test throws an uncaught exception', defect:null, id:null, labels:[], name: 'com.webtrends.qa.testng.SystemUnderTest1.testException()', state: 'FAIL', performance: null],
-            [comment: 'Assertion failed: ', defect:null, id:null, labels:[], name: 'com.webtrends.qa.testng.SystemUnderTest1.testDependsOn()', state: 'FAIL', performance: null],
-            [comment: 'java.lang.AssertionError: __KnownBug__Jira ID - ABC-123', defect:'ABC-123', id:null, labels:[], name: 'com.webtrends.qa.testng.SystemUnderTest1.testKnownBug()', state: 'KNOWN_FAIL', performance: null],
-            [comment: 'java.lang.AssertionError: __PERF_TEST__: [0, 1, 2, 3, 4]', defect:null, id:null, labels:[], name: 'com.webtrends.qa.testng.SystemUnderTest1.testPerformance()', state: 'FAIL', performance: [0,1,2,3,4]]
+            [comment:null, defect:null, labels:[], name: 'com.webtrends.qa.testng.SystemUnderTest1.testDataProvider(string1)', state: 'PASS', performance: null],
+            [comment:null, defect:null, labels:[], name: 'com.webtrends.qa.testng.SystemUnderTest1.testDataProvider(string2)', state: 'PASS', performance: null],
+            [comment:null, defect:null, labels:[], name:'com.webtrends.qa.testng.SystemUnderTest1.testDataProviderWithClass(string1)', state:'PASS', performance:null],
+            [comment:null, defect:null, labels:[], name:'com.webtrends.qa.testng.SystemUnderTest1.testDataProviderWithClass(string2)', state:'PASS', performance:null],            
+            [comment:null, defect:null, labels:['g1'], name: 'com.webtrends.qa.testng.SystemUnderTest1.testPass()', state: 'PASS', performance: null],
+            [comment: 'Assertion failed: ', defect:null, labels:[], name: 'com.webtrends.qa.testng.SystemUnderTest1.testFailures()', state: 'FAIL', performance: null],
+            [comment: 'java.lang.Exception: This test throws an uncaught exception', defect:null, labels:[], name: 'com.webtrends.qa.testng.SystemUnderTest1.testException()', state: 'FAIL', performance: null],
+            [comment:null, defect:null, labels:[], name: 'com.webtrends.qa.testng.SystemUnderTest1.testDataProviderWithExternalClass(string4)', state: 'PASS', performance: null],
+            [comment:null, defect:null, labels:[], name: 'com.webtrends.qa.testng.SystemUnderTest1.testDataProviderWithExternalClass(string5)', state: 'PASS', performance: null],
+            [comment: 'java.lang.Exception: This test throws an uncaught exception', defect:null, labels:[], name: 'com.webtrends.qa.testng.SystemUnderTest1.testException()', state: 'FAIL', performance: null],
+            [comment: 'Assertion failed: ', defect:null, labels:[], name: 'com.webtrends.qa.testng.SystemUnderTest1.testDependsOn()', state: 'FAIL', performance: null],
+            [comment: 'java.lang.AssertionError: __KnownBug__Jira ID - ABC-123', defect:'ABC-123', labels:[], name: 'com.webtrends.qa.testng.SystemUnderTest1.testKnownBug()', state: 'KNOWN_FAIL', performance: null],
+            [comment: 'java.lang.AssertionError: __PERF_TEST__: [0, 1, 2, 3, 4]', defect:null, labels:[], name: 'com.webtrends.qa.testng.SystemUnderTest1.testPerformance()', state: 'FAIL', performance: [0,1,2,3,4]]
         ])
         def actualDate = LocalDateTime.parse(actual.date + 'T' + actual.time)
         assert SECONDS.between(expectedDate, actualDate) < 5
