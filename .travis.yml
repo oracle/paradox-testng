@@ -1,11 +1,13 @@
 language: groovy
-
 jdk:
-  - oraclejdk8
-
+- oraclejdk8
 before_cache:
-  - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 cache:
   directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
+  - $HOME/.gradle/caches/
+  - $HOME/.gradle/wrapper/
+env:
+  global:
+  - secure: CfAD7pzeYGMzki109I/KqUE661shjdTBxsEbpuxGZYgCXatYRCUbhSO8WBgiPZcCHSF3yIMoHXgSbnAVTuX8KIzVcrFXbKXkiUqKiTIYpxgccwgMWC4LY1ZmBVGWQZgEqxLmsAG12O+nRkab/DtJ32SHHmgBK+dpPTWvEqZNBZfz3GIip5L9wtU91V/5bkwjCFuXG3PlJDu4DbQ8JpZ4s7Lq6G35imk4zZifGm/OlI73S/TKyysbs5YuyymlA1KYlIPy0L1rrJKaVieN0NwloopTNupmjuPLTt0d+Gg5VpVcYSjbd6U4pVCKCSswMdl7BM3EJOhf5Hhvu5xkgwMQ+C428qEmjE+9r+f7YEH24KNB3XjZFcTk/OOF5/DI17t/d5Lx/C+ButhyOW4UpHfVrRXman//uoiCWJ8eE3y5mOBfQcuHcFfNrmgU7d5Et3ALhnVqkrxIU8reppSk6Wrrs0ugHIR10mGAvbN4h1jaAbqU57dj58ad8cdEEkiAdUm82nh1KLYf9x0BLB6Wj3lZbHYtCljhUJhaYtRH6ihAnufWKo0q62etKK3JM2TIwWU4jGDyzII5vePRNMtr9pBn6jiAKHK6xW2roEdN+Y+xpVC8mnQpPYE9IupVZueosbzNTCs3gqSoDPODD2/n0HByKpEIxF7bZLJRZwA2pua5DZs=
+  - secure: nEDNxOVI8AIeoQoS0kLDm2xLl2e7LabeueBWimLQDSiBj8WniqrYJ4ych0wwcdHWtkc669I/GXvOIY5NtlM88jg++jbUTr1ASCQwc1L1oybaIdjM+ME70WNUUtZPmo/JzypAQjA098/Vfx3HAQOzmqY5j8X+7mQroWb+KYHRtc4d2GBJtRvWuoWyhjPFMFtBNCjdABDYsS/F/ockoo+H/I6rBsrkVSwRZWEbG8ylwIJNiUB9f/VIj5nnXg0t6T1O67I9X4ySFhb7FuLn2eidZQqdXJKclv5V+BQnBTEDalYV2kiRqkwRoD5mrfjv3OPEvkntW9VBY26ThSJxs3IBr0KT+djdTggfAomKvV84LVK9SZm5R+dUm4xxuiX7eBsuSTOz1/Ks2y9EoLYqKD7paiQOdu0l+AmF/LQkKv/Riu1uN+7ReMMmOV9tNQKVKkPKaQiLjQQiT92vJHfm1sUF87IJVCrzFMRC1Edn/mnvhppma/7u9mRfnk7VJxrlaRBekUutfcWafYi57QP5Fo4d/dlSlbdaBUsrWox/Wog87DgzauDIe6fUfEYmJRcdBVgmaF2+Fz85WqsPqDc7lL9uZpUkCeRJgqMNAKsqwGaV8lAZzF+S1bHO+GHRSRZoniHFbiWzB+4MpZctwvF4m+9OLNYQ+ecbrDw5ezKvI4gYNA0=
