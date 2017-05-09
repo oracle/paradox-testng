@@ -29,7 +29,11 @@ dependencies {
 }
 
 group = 'com.webtrends.qa'
-version = System.properties['buildversion'] ?: '4.0-SNAPSHOT'
+if (System.getenv('TRAVIS_BUILD_NUMBER')) {
+    version = '3.0.' + System.getenv('TRAVIS_BUILD_NUMBER')
+} else {
+    version = System.properties['buildversion'] ?: '4.0-SNAPSHOT'
+}
 
 publishing {
     publications {
@@ -50,7 +54,7 @@ bintray {
         licenses = ['Apache-2.0']
         vcsUrl = 'https://github.com/webtrends/paradox-testng'
         version {
-            name = '3.0.' + System.getenv('TRAVIS_BUILD_NUMBER')
+            name = version
         }
     }
     publications = ['mavenJava']
