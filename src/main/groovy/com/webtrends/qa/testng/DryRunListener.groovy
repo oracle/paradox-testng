@@ -27,7 +27,6 @@ class DryRunListener implements IMethodInterceptor {
                 [
                     name:"${className}.$method.method.methodName(${it.join ", "})",
                     groups: method.method.groups,
-                    id: method.method.constructorOrMethod.method.getAnnotation(Jira)?.value()
                 ]
             }
         }.sort { a,b -> a.name <=> b.name }
@@ -120,7 +119,6 @@ class DryRunListener implements IMethodInterceptor {
                 current = child
             }
 
-            current.Id = test.id
             current.Categories = test.groups
         }
 

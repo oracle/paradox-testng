@@ -28,9 +28,15 @@ class DryRunListenerTests {
         ).run()
 
         // Assert
-        def actual = new JsonSlurper().parseText(sb.toString())
-        def expected = getExpected()
+        // We're sorting here, not because it is critical to the functionality of the listener, but because
+        // it makes comparing any differences much easier.
+        def actual = sortIt(new JsonSlurper().parseText(sb.toString()))
+        def expected = sortIt(getExpected())
         assert actual == expected
+    }
+
+    def sortIt(m) {
+        (m.Tests ? m << [Tests: m.Tests.collect { sortIt it }.sort { it.TestName.FullName }]: m).sort()
     }
 
     private static Object getExpected() {
@@ -148,10 +154,24 @@ class DryRunListenerTests {
                                                             Tests: []
                                                         ],
                                                         [
+                                                            Categories: [],
+                                                            ClassName: 'com.webtrends.qa.testng.SystemUnderTest1(string4)',
+                                                            MethodName: 'testKnownBug',
+                                                            TestName: [FullName: 'com.webtrends.qa.testng.SystemUnderTest1(string4).testKnownBug()', Name: 'testKnownBug()'],
+                                                            Tests: []
+                                                        ],
+                                                        [
                                                             Categories: ['g1'],
                                                             ClassName: 'com.webtrends.qa.testng.SystemUnderTest1(string4)',
                                                             MethodName: 'testPass',
                                                             TestName: [FullName: 'com.webtrends.qa.testng.SystemUnderTest1(string4).testPass()', Name: 'testPass()'],
+                                                            Tests: []
+                                                        ],
+                                                        [
+                                                            Categories: [],
+                                                            ClassName: 'com.webtrends.qa.testng.SystemUnderTest1(string4)',
+                                                            MethodName: 'testPerformance',
+                                                            TestName: [FullName: 'com.webtrends.qa.testng.SystemUnderTest1(string4).testPerformance()', Name: 'testPerformance()'],
                                                             Tests: []
                                                         ]
                                                     ]
@@ -226,10 +246,24 @@ class DryRunListenerTests {
                                                             Tests: []
                                                         ],
                                                         [
+                                                            Categories: [],
+                                                            ClassName: 'com.webtrends.qa.testng.SystemUnderTest1(string5)',
+                                                            MethodName: 'testKnownBug',
+                                                            TestName: [FullName: 'com.webtrends.qa.testng.SystemUnderTest1(string5).testKnownBug()', Name: 'testKnownBug()'],
+                                                            Tests: []
+                                                        ],
+                                                        [
                                                             Categories: ['g1'],
                                                             ClassName: 'com.webtrends.qa.testng.SystemUnderTest1(string5)',
                                                             MethodName: 'testPass',
                                                             TestName: [FullName: 'com.webtrends.qa.testng.SystemUnderTest1(string5).testPass()', Name: 'testPass()'],
+                                                            Tests: []
+                                                        ],
+                                                        [
+                                                            Categories: [],
+                                                            ClassName: 'com.webtrends.qa.testng.SystemUnderTest1(string5)',
+                                                            MethodName: 'testPerformance',
+                                                            TestName: [FullName: 'com.webtrends.qa.testng.SystemUnderTest1(string5).testPerformance()', Name: 'testPerformance()'],
                                                             Tests: []
                                                         ]
                                                     ]

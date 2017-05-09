@@ -1,7 +1,17 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
+    }
+}
+
 apply plugin: 'groovy'
 apply plugin: 'idea'
 apply plugin: 'maven-publish'
 apply plugin: 'codenarc'
+apply plugin: 'com.jfrog.bintray'
 
 repositories {
     mavenCentral()
@@ -19,15 +29,39 @@ dependencies {
 }
 
 group = 'com.webtrends.qa'
-version = System.properties['buildversion'] ?: '3.0-SNAPSHOT'
+if (System.getenv('TRAVIS_BUILD_NUMBER')) {
+    version = '3.0.' + System.getenv('TRAVIS_BUILD_NUMBER')
+} else {
+    version = System.properties['buildversion'] ?: '4.0-SNAPSHOT'
+}
 
 publishing {
-    publications { jar(MavenPublication) { from components.java } }
-    repositories { maven { url "file:/$buildDir/libs" } }
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            artifactId 'wttestng'
+        }
+    }
+    repositories { maven { url "file:/$buildDir/repo"} }
+}
+
+bintray {
+    user = System.getenv('BINTRAY_USER')
+    key = System.getenv('BINTRAY_API_KEY')
+    pkg {
+        repo = 'oss'
+        name = 'paradox-testng'
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/webtrends/paradox-testng'
+        version {
+            name = version
+        }
+    }
+    publications = ['mavenJava']
 }
 
 task prepareWrapper(type: Wrapper) {
-   gradleVersion = '2.14'
+    gradleVersion = '2.14'
 }
 
 test {
