@@ -78,7 +78,8 @@ class CommonFormatReporter implements IReporter {
      * appends the comma-joined parameters surrounded by parentheses to the test class name
      */
     private static String buildName(ITestResult result) {
-        "$result.testClass.name.${result.method.methodName}(${result.parameters*.toString().join(',')})"
+        def testName = result.testClass.testName ?: result.testClass.name
+        "$testName.${result.method.methodName}(${result.parameters*.toString().join(',')})"
     }
 
     /*
