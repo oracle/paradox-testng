@@ -23,17 +23,14 @@ idea {
 
 dependencies {
     compile 'org.codehaus.groovy:groovy-all:2.4.+'
-    compile 'org.testng:testng:6.9.10'
+    compile 'org.testng:testng:6.9.+'
     compile 'com.google.inject:guice:2.0'
-    compile 'log4j:log4j:1.2.17'
+    compile 'log4j:log4j:1.2.+'
 }
 
+
 group = 'com.webtrends.qa'
-if (System.getenv('TRAVIS_BUILD_NUMBER')) {
-    version = '3.0.' + System.getenv('TRAVIS_BUILD_NUMBER')
-} else {
-    version = System.properties['buildversion'] ?: '4.0-SNAPSHOT'
-}
+version = Boolean.parseBoolean(System.properties['release']) ? '4.0.0' : '5.0.0-SNAPSHOT'
 
 publishing {
     publications {
@@ -42,7 +39,7 @@ publishing {
             artifactId 'wttestng'
         }
     }
-    repositories { maven { url "file:/$buildDir/repo"} }
+    repositories { maven { url "$buildDir/repo"} }
 }
 
 bintray {
@@ -60,6 +57,20 @@ bintray {
     publications = ['mavenJava']
 }
 
+if (project.hasProperty('artifactoryPublish')) {
+    artifactory {
+        publish {
+            repository {
+                maven = true
+            }
+            defaults {
+                publications('mavenJava')
+                publishPom = true
+            }
+        }
+    }
+}
+
 task prepareWrapper(type: Wrapper) {
     gradleVersion = '2.14'
 }
@@ -75,7 +86,7 @@ test {
 }
 
 codenarc {
-    toolVersion = '0.25.2'
+    toolVersion = '0.27.0'
     configFile = new File('conf/codenarc.groovy')
     maxPriority1Violations = 0
     maxPriority2Violations = 16
