@@ -8,6 +8,11 @@ import org.testng.ISuite
 import org.testng.ITestResult
 import org.testng.xml.XmlSuite
 
+import java.time.Instant
+import java.time.ZoneOffset
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
+
 /**
  * This reporter produces a json version of the results
  */
@@ -43,9 +48,13 @@ class CommonFormatReporter implements IReporter {
                 println "results = ${results.collect { "$it.name ${buildState(it)}\n" }}"
                 println "results.size() = ${results.size()}"
                 if (!date) {
-                    def datetime = ([results[0]?.startMillis].findAll() as Date)
-                    date = datetime.format("yyyy-MM-dd")
-                    time = datetime.format("hh:mm:ss")
+
+                    def datetime = ZonedDateTime.ofInstant(
+                            Instant.ofEpochMilli([results[0]?.startMillis][0]),
+                            ZoneOffset.UTC
+                    )
+                    date = datetime.format(DateTimeFormatter.ofPattern('yyyy-MM-dd'))
+                    time = datetime.format(DateTimeFormatter.ofPattern('hh:mm:ss'))
                 }
                 results.collect { result ->
                     [
