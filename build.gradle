@@ -23,7 +23,7 @@ idea {
 
 dependencies {
     compile 'org.codehaus.groovy:groovy-all:2.4.+'
-    compile 'org.testng:testng:6.13.1'
+    compile 'org.testng:testng:6.9.10'
     compile 'com.google.inject:guice:4.2.2'
     compile 'log4j:log4j:1.2.+'
 }
