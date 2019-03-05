@@ -22,15 +22,15 @@ idea {
 }
 
 dependencies {
-    compile 'org.codehaus.groovy:groovy-all:2.4.+'
-    compile 'org.testng:testng:6.9.10'
+    compile 'org.codehaus.groovy:groovy-all:2.4.15'
+    compile 'org.testng:testng:6.13.1'
     compile 'com.google.inject:guice:4.2.2'
     compile 'log4j:log4j:1.2.+'
 }
 
 
 group = 'com.webtrends.qa'
-version = Boolean.parseBoolean(System.properties['release']) ? '3.0.8' : '3.0.8-SNAPSHOT'
+version = Boolean.parseBoolean(System.properties['release']) ? '3.0.9' : '3.0.9-SNAPSHOT'
 
 publishing {
     publications {
@@ -72,7 +72,7 @@ if (project.hasProperty('artifactoryPublish')) {
 }
 
 task prepareWrapper(type: Wrapper) {
-    gradleVersion = '2.14'
+    gradleVersion = '5.0'
 }
 
 test {
@@ -86,10 +86,10 @@ test {
 }
 
 codenarc {
-    toolVersion = '1.0'
+    toolVersion = '1.1'
     configFile = new File('conf/codenarc.groovy')
     maxPriority1Violations = 0
-    maxPriority2Violations = 16
-    maxPriority3Violations = Integer.MAX_VALUE
+    maxPriority2Violations = 0
+    maxPriority3Violations = 0
     reportFormat = project.properties.'codenarc.reportFormat' ?: 'html'
 }

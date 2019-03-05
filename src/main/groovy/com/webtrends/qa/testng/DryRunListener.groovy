@@ -1,6 +1,7 @@
 package com.webtrends.qa.testng
 
 import groovy.json.JsonOutput
+import groovy.util.logging.Log4j
 import org.testng.IMethodInstance
 import org.testng.IMethodInterceptor
 import org.testng.ITestContext
@@ -12,6 +13,7 @@ import org.testng.annotations.Test
  * The @BeforeMethod and @BeforeClass methods are NOT run, but the @BeforeSuite, @BeforeTest and constructors still run.
  * If data providers rely on the @BeforeClass methods getting called, they won't work.  Tests are sorted alphabetically.
  */
+@Log4j
 class DryRunListener implements IMethodInterceptor {
     static final String RESULT_FILE_NAME = 'tests.json'
 
@@ -25,17 +27,17 @@ class DryRunListener implements IMethodInterceptor {
             def params = getParametersForMethod(method)
             params.collect {
                 [
-                    name:"${className}.$method.method.methodName(${it.join ", "})",
+                    name: "${className}.$method.method.methodName(${it.join ', '})",
                     groups: method.method.groups,
                 ]
             }
-        }.sort { a,b -> a.name <=> b.name }
+        }.sort { a, b -> a.name <=> b.name }
 
         String outDir = new File(context.outputDirectory).parent
         new File(outDir, RESULT_FILE_NAME).withWriter { it.writeLine JsonOutput.toJson(treeify(tests)) }
-        println JsonOutput.toJson(treeify(tests))
-        println "$RESULT_FILE_NAME written to $outDir"
-        return [] // tells testng - Don't run any methods!
+        log.debug JsonOutput.toJson(treeify(tests))
+        log.debug "$RESULT_FILE_NAME written to $outDir"
+        [] // tells testng - Don't run any methods!
     }
 
     /*
@@ -122,6 +124,6 @@ class DryRunListener implements IMethodInterceptor {
             current.Categories = test.groups
         }
 
-        return root
+        root
     }
 }
