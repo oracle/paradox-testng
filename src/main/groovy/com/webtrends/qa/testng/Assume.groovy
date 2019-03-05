@@ -6,6 +6,7 @@ package com.webtrends.qa.testng
  * An assertion that is wrapped with assume is put into a special format that can be recognized by reporting mechanisms
  * downstream.
  */
+@SuppressWarnings('ConstantAssertExpression')
 class Assume {
     // The format is broken into pieces like this, because we want to know the length the the prefix in order to align
     // things properly.

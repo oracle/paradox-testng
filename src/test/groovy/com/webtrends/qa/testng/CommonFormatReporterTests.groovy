@@ -57,6 +57,7 @@ class CommonFormatReporterTests {
         assert actual.containsKey('environment')
         assert actual.containsKey('name')
         assert actual.containsKey('commandline')
+        assert actual.tests.size() == expectedTests.size()
         assert actual.tests == expectedTests
     }
 }

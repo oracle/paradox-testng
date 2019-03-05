@@ -39,14 +39,14 @@ class CommonFormatReporter implements IReporter {
         def tests = suites.collectMany { suite ->
             suite.results.values().collectMany { suiteResult ->
                 def tc = suiteResult.testContext
-                ArrayList<ITestResult> results =
+                List<ITestResult> results =
                     [tc.passedTests,
                      tc.failedTests,
                      tc.skippedTests,
                      tc.failedButWithinSuccessPercentageTests]*.allResults.flatten()
                 results = results.findAll().sort { buildName(it) } //.findAll() filters out nulls and []'s
-                println "results = ${results.collect { "$it.name ${buildState(it)}\n" }}"
-                println "results.size() = ${results.size()}"
+                log.debug 'results = ' + results.collect { "$it.name ${buildState(it)}\n" }
+                log.debug "results.size() = ${results.size()}"
                 if (!date) {
 
                     def datetime = ZonedDateTime.ofInstant(
@@ -71,16 +71,16 @@ class CommonFormatReporter implements IReporter {
 
         new File(outputDirectory, RESULT_FILE_NAME).withWriter {
             it.writeLine JsonOutput.toJson([
-                name:name,
-                environment:environment,
-                date:date,
-                time:time,
-                commandline:commandline,
-                tests:tests
+                name: name,
+                environment: environment,
+                date: date,
+                time: time,
+                commandline: commandline,
+                tests: tests
             ])
         }
 
-        println "$RESULT_FILE_NAME written to $outputDirectory"
+        log.debug "$RESULT_FILE_NAME written to $outputDirectory"
     }
 
     /*
@@ -127,7 +127,7 @@ class CommonFormatReporter implements IReporter {
         StringWriter sw = new StringWriter()
         PrintWriter pw = new PrintWriter(sw)
         exception.printStackTrace(pw)
-        return sw.buffer.toString()
+        sw.buffer.toString()
     }
 
     /*

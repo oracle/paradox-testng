@@ -114,9 +114,7 @@ ruleset {
     // rulesets/dry.xml
     DuplicateListLiteral
     DuplicateMapLiteral
-    DuplicateNumberLiteral(priority: 3) {
-        ignoreNumbers = "-2,-1,0,1,2"
-    }
+    DuplicateNumberLiteral(ignoreNumbers: [-2,-1,0,1,2])
     //DuplicateStringLiteral
 
     // rulesets/enhanced.xml
