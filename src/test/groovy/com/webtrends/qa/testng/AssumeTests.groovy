@@ -2,6 +2,11 @@ package com.webtrends.qa.testng
 
 import org.testng.annotations.Test
 
+/**
+ * Test cases for Assume testNG Class
+ */
+// Testing assertions
+@SuppressWarnings([ 'ComparisonOfTwoConstants', 'ConstantAssertExpression' ])
 class AssumeTests {
     /*
      * When no message is given in the inner assert, PowerAssert produces a multi-line expression where alignment is

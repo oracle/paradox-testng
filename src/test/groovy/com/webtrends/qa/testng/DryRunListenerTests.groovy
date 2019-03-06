@@ -4,6 +4,9 @@ import groovy.json.JsonSlurper
 import org.testng.TestNG
 import org.testng.annotations.Test
 
+/**
+ * Test cases for DryRunListener class
+ */
 class DryRunListenerTests {
     /*
      * Verifies the DryRunListener creates a report that lines up with the format expected by a plugin
@@ -14,31 +17,32 @@ class DryRunListenerTests {
         // Shim File.withWriter to write to a StringBuilder instead of a file
         def sb = new StringBuilder()
         File.metaClass.constructor << { parent, fileName ->
-            [withWriter: {
-                it([writeLine: sb.&append])
-            }]
+            [
+                withWriter: { it([writeLine: sb.&append]) }
+            ]
         }
 
         // Act
         new TestNG(
             useDefaultListeners: false,
             verbose: 0,
-            testClasses: [SystemUnderTest1.class, AnotherSuite.class],
-            listenerClasses: [DryRunListener.class],
+            testClasses: [SystemUnderTest1, AnotherSuite],
+            listenerClasses: [DryRunListener],
         ).run()
 
         // Assert
         // We're sorting here, not because it is critical to the functionality of the listener, but because
         // it makes comparing any differences much easier.
         def actual = sortIt(new JsonSlurper().parseText(sb.toString()))
-        def expected = sortIt(getExpected())
+        def expected = sortIt(expected)
         assert actual == expected
     }
 
     def sortIt(m) {
-        (m.Tests ? m << [Tests: m.Tests.collect { sortIt it }.sort { it.TestName.FullName }]: m).sort()
+        ( m.Tests ? m << [ Tests: m.Tests.collect { sortIt it }.sort { it.TestName.FullName } ] : m ).sort()
     }
 
+    @SuppressWarnings( ['LineLength', 'MethodSize' ] ) // Suppressing for formatting
     private static Object getExpected() {
         [
             ClassName: null,

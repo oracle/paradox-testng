@@ -12,45 +12,51 @@ import org.testng.annotations.Test
 
 import java.lang.reflect.Method
 
+/**
+ * Test cases for WTTestng plugin
+ */
+@Log4j
 class SystemUnderTest1 {
     String classParameters = null
 
-    @Factory(dataProvider = 'external', dataProviderClass = ExternalDataProvider.class)
+    @Factory(dataProvider = 'external', dataProviderClass = ExternalDataProvider)
     SystemUnderTest1(String ctorString) {
         classParameters = [ctorString].join(', ')
     }
 
     @BeforeClass
     void beforeClass() {
-        println 'this runs before every class'
+        log.debug 'this runs before every class'
     }
 
     @BeforeTest
     void beforeTest() {
-        println 'this runs before every test'
+        log.debug 'this runs before every test'
     }
 
     @BeforeGroups(groups = ['g1'])
     void beforeGroups() {
-        println 'this runs before every Group'
+        log.debug 'this runs before every Group'
     }
 
     @BeforeSuite
     void beforeSuite() {
-        println 'this runs before every suite'
+        log.debug 'this runs before every suite'
     }
 
     @BeforeMethod
     void beforeMethod(Method method, Object [] data) {
-        println "this runs before every method $data, $method"
+        log.debug "this runs before every method $data, $method"
     }
 
     @Test
+    @SuppressWarnings('ConstantAssertExpression') // Used to validate assertion failing
     void testFailures() {
         assert false && 'This test fails'
     }
 
     @Test(groups = ['g1'])
+    @SuppressWarnings('ConstantAssertExpression') // Used to validate assertion passing
     void testPass() {
         assert 'This test passes'
     }
@@ -66,12 +72,13 @@ class SystemUnderTest1 {
     }
 
     @Test
+    @SuppressWarnings('ThrowException') // Used to validate exceptions thrown
     void testException() {
         throw new Exception('This test throws an uncaught exception')
     }
 
     @DataProvider(name = 'aDataProvider')
-    Object[][] dataProviderMethod(){ [
+    static Object[][] dataProviderMethod() { [
         ['string1'],
         ['string2'],
     ] }
@@ -81,12 +88,12 @@ class SystemUnderTest1 {
         assert param != null
     }
 
-    @Test(dataProvider = 'aDataProvider', dataProviderClass = SystemUnderTest1.class)
+    @Test(dataProvider = 'aDataProvider', dataProviderClass = SystemUnderTest1)
     void testDataProviderWithClass(String param) {
         assert param != null
     }
 
-    @Test(dataProvider = 'external', dataProviderClass = ExternalDataProvider.class)
+    @Test(dataProvider = 'external', dataProviderClass = ExternalDataProvider)
     void testDataProviderWithExternalClass(String param) {
         assert param != null
     }
@@ -107,7 +114,7 @@ class SystemUnderTest1 {
 
 class ExternalDataProvider {
     @DataProvider(name = 'external')
-    static Object[][] dataProviderMethod(){ [
+    static Object[][] dataProviderMethod() { [
         ['string4'],
         ['string5'],
     ] }
@@ -115,6 +122,7 @@ class ExternalDataProvider {
 
 class AnotherSuite {
     @Test
+    @SuppressWarnings('ConstantAssertExpression') // Used to validate assertion psasing
     void testPass() {
         assert 'This test passes'
     }
@@ -129,6 +137,6 @@ class SuiteThatLogs {
 
     @Test
     void testPrintLine() {
-        println 'I should not appear'
+        log.debug 'I should not appear'
     }
 }

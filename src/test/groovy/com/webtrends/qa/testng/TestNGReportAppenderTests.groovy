@@ -3,13 +3,15 @@ package com.webtrends.qa.testng
 import groovy.util.logging.Log4j
 import org.testng.TestNG
 import org.testng.annotations.AfterClass
-import org.testng.annotations.AfterMethod
 import org.testng.annotations.BeforeMethod
 import org.testng.annotations.Test
 
+/**
+ * Test cases for Report Appender
+ */
 @Log4j
 class TestNGReportAppenderTests {
-    def final tempDir = 'temp'
+    final tempDir = 'temp'
 
     @BeforeMethod(alwaysRun = true)
     void setup() {
@@ -21,7 +23,7 @@ class TestNGReportAppenderTests {
         new TestNG(
                 useDefaultListeners: true,
                 verbose: 0,
-                testClasses: [ SuiteThatLogs.class ],
+                testClasses: [ SuiteThatLogs ],
                 outputDirectory: tempDir
         ).run()
 
@@ -32,6 +34,7 @@ class TestNGReportAppenderTests {
     }
 
     @AfterClass(alwaysRun = true)
+    @SuppressWarnings('ExplicitGarbageCollection')
     void teardown() {
         //TestNG holds onto a reference to it's outputDirectory,
         //and does not provide an API to release it deterministically.
