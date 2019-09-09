@@ -1,6 +1,6 @@
 package com.webtrends.qa.testng
 
-import groovy.util.logging.Log4j
+import groovy.util.logging.Log4j2
 import org.testng.annotations.BeforeClass
 import org.testng.annotations.BeforeGroups
 import org.testng.annotations.BeforeMethod
@@ -15,7 +15,7 @@ import java.lang.reflect.Method
 /**
  * Test cases for WTTestng plugin
  */
-@Log4j
+@Log4j2
 class SystemUnderTest1 {
     String classParameters = null
 
@@ -128,7 +128,7 @@ class AnotherSuite {
     }
 }
 
-@Log4j
+@Log4j2
 class SuiteThatLogs {
     @Test
     void testLogMessage() {

@@ -2,7 +2,7 @@ package com.webtrends.qa.testng
 
 import groovy.json.JsonOutput
 import groovy.json.JsonSlurper
-import groovy.util.logging.Log4j
+import groovy.util.logging.Log4j2
 import org.testng.IReporter
 import org.testng.ISuite
 import org.testng.ITestResult
@@ -16,7 +16,7 @@ import java.time.format.DateTimeFormatter
 /**
  * This reporter produces a json version of the results
  */
-@Log4j
+@Log4j2
 class CommonFormatReporter implements IReporter {
     static final String KNOWN_BUG_FORMAT = "${Assert.KNOWN_BUG_MESSAGE} ([A-Z]+-[0-9]+)"
     static final String PERFORMANCE_FORMAT = "${Assert.PERF_MESSAGE} (.*)"

@@ -21,16 +21,27 @@ idea {
     pathVariables USER_HOME: file(System.getProperty("user.home"))
 }
 
+// Exclude log4j 1.x from transitive dependencies
+configurations {
+    all*.exclude group: 'log4j', module: 'log4j'
+    all*.exclude group: 'org.slf4j', module: 'slf4j-log4j12'
+}
+
+def log4j2Version = '2.12.0'
 dependencies {
     compile 'org.codehaus.groovy:groovy-all:2.4.15'
     compile 'org.testng:testng:6.13.1'
     compile 'com.google.inject:guice:4.2.2'
-    compile 'log4j:log4j:1.2.+'
+    compile "org.apache.logging.log4j:log4j-api:$log4j2Version"
+    compile "org.apache.logging.log4j:log4j-core:$log4j2Version"
+    compile "org.apache.logging.log4j:log4j-1.2-api:$log4j2Version"
+    compile "org.apache.logging.log4j:log4j-jcl:$log4j2Version"
+    compile "org.apache.logging.log4j:log4j-slf4j-impl:$log4j2Version"
 }
 
 
 group = 'com.webtrends.qa'
-version = Boolean.parseBoolean(System.properties['release']) ? '3.0.9' : '3.0.9-SNAPSHOT'
+version = Boolean.parseBoolean(System.properties['release']) ? '3.1.0' : '3.1.0-SNAPSHOT'
 
 publishing {
     publications {
@@ -49,7 +60,7 @@ bintray {
         repo = 'oss'
         name = 'paradox-testng'
         licenses = ['Apache-2.0']
-        vcsUrl = 'https://github.com/webtrends/paradox-testng'
+        vcsUrl = 'https://github.com/oracle/paradox-testng'
         version {
             name = version
         }

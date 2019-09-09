@@ -1,6 +1,6 @@
 package com.webtrends.qa.testng
 
-import groovy.util.logging.Log4j
+import groovy.util.logging.Log4j2
 import org.testng.TestNG
 import org.testng.annotations.AfterClass
 import org.testng.annotations.BeforeMethod
@@ -9,7 +9,7 @@ import org.testng.annotations.Test
 /**
  * Test cases for Report Appender
  */
-@Log4j
+@Log4j2
 class TestNGReportAppenderTests {
     final tempDir = 'temp'
 
