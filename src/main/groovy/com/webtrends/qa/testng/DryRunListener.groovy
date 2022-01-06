@@ -1,7 +1,7 @@
 package com.webtrends.qa.testng
 
 import groovy.json.JsonOutput
-import groovy.util.logging.Log4j
+import groovy.util.logging.Log4j2
 import org.testng.IMethodInstance
 import org.testng.IMethodInterceptor
 import org.testng.ITestContext
@@ -13,7 +13,7 @@ import org.testng.annotations.Test
  * The @BeforeMethod and @BeforeClass methods are NOT run, but the @BeforeSuite, @BeforeTest and constructors still run.
  * If data providers rely on the @BeforeClass methods getting called, they won't work.  Tests are sorted alphabetically.
  */
-@Log4j
+@Log4j2
 class DryRunListener implements IMethodInterceptor {
     static final String RESULT_FILE_NAME = 'tests.json'
 
