@@ -27,21 +27,21 @@ configurations {
     all*.exclude group: 'org.slf4j', module: 'slf4j-log4j12'
 }
 
-def log4j2Version = '2.12.0'
+def log4j2Version = '2.17.1'
 dependencies {
-    compile 'org.codehaus.groovy:groovy-all:2.4.15'
-    compile 'org.testng:testng:6.13.1'
-    compile 'com.google.inject:guice:4.2.2'
-    compile "org.apache.logging.log4j:log4j-api:$log4j2Version"
-    compile "org.apache.logging.log4j:log4j-core:$log4j2Version"
-    compile "org.apache.logging.log4j:log4j-1.2-api:$log4j2Version"
-    compile "org.apache.logging.log4j:log4j-jcl:$log4j2Version"
-    compile "org.apache.logging.log4j:log4j-slf4j-impl:$log4j2Version"
+    implementation 'org.codehaus.groovy:groovy-all:2.4.15'
+    implementation 'org.testng:testng:6.13.1'
+    implementation 'com.google.inject:guice:4.2.2'
+    implementation "org.apache.logging.log4j:log4j-api:$log4j2Version"
+    implementation "org.apache.logging.log4j:log4j-core:$log4j2Version"
+    implementation "org.apache.logging.log4j:log4j-1.2-api:$log4j2Version"
+    implementation "org.apache.logging.log4j:log4j-jcl:$log4j2Version"
+    implementation "org.apache.logging.log4j:log4j-slf4j-impl:$log4j2Version"
 }
 
 
 group = 'com.webtrends.qa'
-version = Boolean.parseBoolean(System.properties['release']) ? '3.1.0' : '3.1.0-SNAPSHOT'
+version = Boolean.parseBoolean(System.properties['release']) ? '3.1.1' : '3.1.1-SNAPSHOT'
 
 publishing {
     publications {
@@ -83,7 +83,7 @@ if (project.hasProperty('artifactoryPublish')) {
 }
 
 task prepareWrapper(type: Wrapper) {
-    gradleVersion = '5.0'
+    gradleVersion = '7.0'
 }
 
 test {
